@@ -1,0 +1,11 @@
+{
+  "name": "cbt-api-dev-test",
+  "version": "0.1.0",
+  "description": "CBT api scaffolding for potential applicants to use for their technical skillz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CBT Nuggets Services Team",
+  "license": "MIT"
+}
