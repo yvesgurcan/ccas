@@ -1,0 +1,35 @@
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: #e50050;
+  text-decoration: none;
+}
+
+body {
+  color: #444444;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+p {
+  color: #444444;
+}
+
+a {
+  color: #337ab7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.padding-20 {
+  padding: 20px;
+}
