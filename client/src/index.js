@@ -8,7 +8,8 @@ import Router from 'react-router-dom/HashRouter';
 import { Route, Switch } from 'react-router-dom';
 import rootReducer from './reducers';
 
-import Home from './components/Home';
+import Dashboard from './components/Dashboard';
+import Order from './components/Order';
 
 import './style/main.scss';
 
@@ -25,7 +26,8 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
             <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/order/new" component={Order} />
+                <Route path="/" component={Dashboard} />
             </Switch>
         </Router>
     </Provider>,
