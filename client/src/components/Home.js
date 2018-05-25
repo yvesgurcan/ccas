@@ -7,7 +7,7 @@ class Home extends Component {
                 <div className="padding-20">
                     <h1>Home</h1>
                     <p>
-                        Welcome to the home page, everyone can see this!
+                        Welcome!
                     </p>
                 </div>
             </div>
