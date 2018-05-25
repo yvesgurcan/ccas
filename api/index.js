@@ -6,6 +6,7 @@ const hostname = 'localhost';
 const port = 3000;
 
 app.post('/order', (req, res) => {
+  const { make, model, packageLevel, customer_id } = req.body;
   res.send();
 });
 
