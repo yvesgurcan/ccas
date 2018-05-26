@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-
-
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const hostname = 'localhost';
@@ -32,7 +30,7 @@ app.post(`${root}/order`, (req, res) => {
 
   const { model, packageLevel } = req.body;
   if (!model || !packageLevel) {
-    console.log('Missing parameters');
+    console.log('Some required parameters are missing.');
     res.status(400);
     return res.send({ message: 'Invalid request.' });
   }

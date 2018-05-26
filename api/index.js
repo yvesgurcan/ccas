@@ -4,7 +4,6 @@ const db = require('./db');
 const supplierRequest = require('./supplierRequest');
 
 const app = express();
-
 app.use(bodyParser.json({ extended: false }));
 
 const hostname = 'localhost';

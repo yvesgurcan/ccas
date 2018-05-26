@@ -8,7 +8,7 @@
     "watch": "nodemon",
     "debug": "node --inspect index",
     "getorders": "curl http://localhost:3000/orders && echo '\n'",
-    "postorder": "curl -X POST -H 'Content-Type: application/json' -d '{\"make\": \"ford\", \"model\": \"roadrunner\", \"packageLevel\": \"super-comfy\"}' http://localhost:3000/order && echo '\n'",
+    "postorder": "curl -X POST -H 'Content-Type: application/json' -d '{\"make\": \"ford\", \"model\": \"pugetsound\", \"packageLevel\": \"super-comfy\"}' http://localhost:3000/order && echo '\n'",
     "test": "",
     "lint": "eslint ./"
   },
