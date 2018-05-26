@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const address = 'mongodb://localhost/ccas';
+const address = 'mongodb://localhost/ccas-debug';
 const connect = function (callback) {
   mongoose.connect(address);
   const db = mongoose.connection;
@@ -20,25 +20,26 @@ const OrderSchema = new Schema({
 });
 const Order = mongoose.model('Order', OrderSchema);
 
+const catchError = function (error, callback) {
+  console.error(error);
+  return callback(error);
+};
+
 module.exports = {
   insertOrder: (parameters, callback) => {
     connect(function () {
       const { make, model, packageLevel, customerId = null } = parameters;
-      const newOrder = new Order({ make, model, packageLevel });
-      newOrder.save(function (error) {
-        if (error) console.error(error);
-        else console.log('Order successfully created.');
-        return callback(error);
-      });
+      const newOrder = new Order({make: { make, model, packageLevel }});
+      newOrder.save()
+        .then(() => callback())
+        .catch(error => catchError(error, callback));
     });
   },
   fetchOrders: (callback) => {
     connect(function () {
-      Order.find(function (error, orders) {
-        if (error) console.error(error);
-        else console.log('Order data was successfully retrieved.');
-        return callback(error, orders);
-      });
+      Order.find()
+        .then(orders => callback(null, orders))
+        .catch(error => catchError(error, callback));
     });
   }
 };
