@@ -1,14 +1,11 @@
 const mongoose = require('mongoose');
 
 const address = 'mongodb://localhost/ccas-debug';
-const connect = function (callback) {
-  mongoose.connect(address);
-  const db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function () {
-    console.log('Connected to database.');
-    callback();
-  });
+const connect = function () {
+  mongoose.connect(address).then(
+    () => null,
+    error => console.error('An error occurred while connecting to the database:\n', error)
+  );
 };
 
 const Schema = mongoose.Schema;
@@ -20,26 +17,7 @@ const OrderSchema = new Schema({
 });
 const Order = mongoose.model('Order', OrderSchema);
 
-const catchError = function (error, callback) {
-  console.error(error);
-  return callback(error);
-};
-
 module.exports = {
-  insertOrder: (parameters, callback) => {
-    connect(function () {
-      const { make, model, packageLevel, customerId = null } = parameters;
-      const newOrder = new Order({make: { make, model, packageLevel }});
-      newOrder.save()
-        .then(() => callback())
-        .catch(error => catchError(error, callback));
-    });
-  },
-  fetchOrders: (callback) => {
-    connect(function () {
-      Order.find()
-        .then(orders => callback(null, orders))
-        .catch(error => catchError(error, callback));
-    });
-  }
+  fetchOrders: () => Promise.resolve(connect()).then(() => Order.find()),
+  insertOrder: (orderData) => Promise.resolve(connect()).then(() => new Order(orderData).save()),
 };
