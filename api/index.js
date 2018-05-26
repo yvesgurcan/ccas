@@ -62,12 +62,14 @@ app.post('/order', (req, res) => {
     return res.send({ message: 'Invalid request.' });
   }
 
+  const orderData = Object.assign(data, { supplier });
+
   let orderId = null;
-  db.insertOrder(data)
+  db.insertOrder(orderData)
     .then((order) => {
       console.log('Order successfully created in the database.');
       orderId = order._id;
-      return supplierRequest(supplier, data);
+      return supplierRequest(supplier, orderData);
     })
     .then(supplierOrderId => {
       console.log('Order successfully sent to the supplier.');

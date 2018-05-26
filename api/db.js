@@ -14,6 +14,7 @@ const OrderSchema = new Schema({
   model: String,
   packageLevel: String,
   customerId: Number,
+  supplier: String,
   supplierOrderId: String,
 });
 const Order = mongoose.model('Order', OrderSchema);
