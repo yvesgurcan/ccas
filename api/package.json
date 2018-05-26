@@ -7,12 +7,15 @@
     "start": "node index",
     "watch": "nodemon",
     "debug": "node --inspect index",
+    "getorders": "curl http://localhost:3000/orders && echo '\n'",
+    "postorder": "curl -X POST -H 'Content-Type: application/json' -d '{\"make\": \"renault\", \"model\": \"twingo\", \"packageLevel\": \"super-comfy\"}' http://localhost:3000/order && echo '\n'",
     "test": "",
     "lint": "eslint ./"
   },
   "author": "Yves Gurcan",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "lodash": "^4.17.10",
     "mockgoose": "^7.3.5",
