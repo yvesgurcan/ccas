@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const address = 'mongodb://localhost/ccas-debug';
+const address = 'mongodb://localhost/ccas';
 const connect = function () {
   mongoose.connect(address).then(
     () => null,
@@ -14,10 +14,19 @@ const OrderSchema = new Schema({
   model: String,
   packageLevel: String,
   customerId: Number,
+  supplierOrderId: String,
 });
 const Order = mongoose.model('Order', OrderSchema);
 
 module.exports = {
   fetchOrders: () => Promise.resolve(connect()).then(() => Order.find()),
   insertOrder: (orderData) => Promise.resolve(connect()).then(() => new Order(orderData).save()),
+  addSupplierOrderId: (orderId, supplierOrderId) =>
+    Promise.resolve(connect()).then(() =>
+      Order.update(
+      { _id: orderId },
+      { $set: { supplierOrderId } },
+      null
+    )
+  ),
 };

@@ -13,11 +13,16 @@ const port = 3000;
 const catchError = function (error, res) {
   if (error.response) {
     console.error('An error occurred. Response details:\n', {
-      resource: error.response.request.url,
-      method: error.response.request.method,
-      status: error.status,
-      error: error.message,
-      details: error.response.body,
+      request: {
+        resource: error.response.request.url,
+        method: error.response.request.method,
+        payload: error.response.request._data,
+      },
+      response: {
+        status: error.status,
+        error: error.message,
+        body: error.response.body,
+      }
     });
   }
   else {
@@ -34,26 +39,42 @@ app.post('/order', (req, res) => {
   const { make, model, packageLevel, customerId = null } = req.body;
 
   if (!make || !model || !packageLevel) {
+    console.error('Some required parameters are missing.');
     res.status(400);
     return res.send({ message: 'Invalid request.' });
   }
 
-  const orderData = {
+  const data = {
     make,
     model,
     packageLevel,
     customerId,
   };
   
-  db.insertOrder(orderData)
-    .then(() => {
-      console.log('Order successfully created in the database.')
-      return supplierRequest('acme', orderData)
+  let supplier = null;
+
+  if (model === 'anvil' || model === 'wile' || model === 'roadrunner') {
+    supplier = 'acme';
+  } else if (model === 'pugetsound' || model === 'olympic') {
+    supplier = 'rainier';
+  } else {
+    console.error(`The supplier could not be identified for model '${model}'.`);
+    res.status(400);
+    return res.send({ message: 'Invalid request.' });
+  }
+
+  let orderId = null;
+  db.insertOrder(data)
+    .then((order) => {
+      console.log('Order successfully created in the database.');
+      orderId = order._id;
+      return supplierRequest(supplier, data);
     })
-    .then(apiRes => {
-        console.log('Order successfully sent to the supplier API.');
-        return res.send({ message: 'Order successfully created.' });
+    .then(supplierOrderId => {
+      console.log('Order successfully sent to the supplier.');
+      return db.addSupplierOrderId(orderId, supplierOrderId);
     })
+    .then(() => res.send({ message: 'Order successfully created.' }))
     .catch(error => catchError(error, res));
 });
 
