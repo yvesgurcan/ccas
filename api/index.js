@@ -36,7 +36,6 @@ app.post('/order', (req, res) => {
 
 app.get('/orders', (req, res) => {
   db.fetchOrders(function (error, orders) {
-    console.log(error)
     if (error) {
       res.status = 500;
       return res.send({ message: 'An error occurred. Could not fetch data.' });
