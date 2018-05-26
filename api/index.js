@@ -17,21 +17,18 @@ app.post('/order', (req, res) => {
 
   if (!make || !model || !packageLevel) {
     res.status = 400;
-    res.send({ message: 'Invalid request.' });
-    return;
+    return res.send({ message: 'Invalid request.' });
   }
   
   db.insertOrder(req.body, function (error) {
     if (error) {
       res.status = 500;
-      res.send({ message: 'An error occurred. The order was not created.' });
-      return;
+      return res.send({ message: 'An error occurred. The order was not created.' });
     }
 
     // TODO: add supplier API requests
 
-    res.send({ message: 'Order successfully created.' });
-    return;
+    return res.send({ message: 'Order successfully created.' });
   });
 });
 
@@ -39,12 +36,10 @@ app.get('/orders', (req, res) => {
   db.fetchOrders(function (error, orders) {
     if (error) {
       res.status = 500;
-      res.send({ message: 'An error occurred. Could not fetch data.' });
-      return;
+      return res.send({ message: 'An error occurred. Could not fetch data.' });
     }
 
-    res.send({ orders });
-    return;
+    return res.send({ orders });
   });
 });
 

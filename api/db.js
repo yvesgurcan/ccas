@@ -28,8 +28,7 @@ module.exports = {
       newOrder.save(function (error) {
         if (error) console.error(error);
         else console.log('Order successfully created.');
-        callback(error);
-        return;
+        return callback(error);
       });
     });
   },
@@ -38,8 +37,7 @@ module.exports = {
       Order.find(function (error, orders) {
         if (error) console.error(error);
         else console.log('Order data was successfully retrieved.');
-        callback(error, orders);
-        return orders;
+        return callback(error, orders);
       });
     });
   }
