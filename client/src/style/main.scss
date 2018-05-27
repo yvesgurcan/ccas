@@ -2,11 +2,7 @@
   box-sizing: inherit;
 }
 
-a {
-  display: block;
-  color: #e50050;
-  text-decoration: none;
-  margin-bottom: 10px;
+.feedback {
   margin-left: 4px;
 }
 
@@ -24,7 +20,11 @@ p {
 }
 
 a {
+  display: block;
   color: #337ab7;
+  text-decoration: none;
+  margin-bottom: 10px;
+  margin-left: 4px;
 }
 
 h1, h2, h3, h4, h5, h6 {
