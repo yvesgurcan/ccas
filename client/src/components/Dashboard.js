@@ -25,8 +25,8 @@ class Dashboard extends Component {
                 <div>
                     <h1>Dashboard</h1>
                 </div>
-                <Link to="/order/new">Add Order</Link>
-                <div className="feedback">
+                <Link className="margin-bottom" to="/order/new">Add Order</Link>
+                <div className="margin-left">
                     { status === LOADING && 'Loading...' }
                     { status === ERROR && `An error occurred: ${error}` }
                 </div>

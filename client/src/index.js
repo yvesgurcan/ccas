@@ -9,7 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import rootReducer from './reducers';
 
 import Dashboard from './components/Dashboard';
-import Order from './components/Order';
+import CreateOrder from './components/CreateOrder';
 
 import './style/main.scss';
 
@@ -26,7 +26,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
             <Switch>
-                <Route exact path="/order/new" component={Order} />
+                <Route exact path="/order/new" component={CreateOrder} />
                 <Route path="/" component={Dashboard} />
             </Switch>
         </Router>

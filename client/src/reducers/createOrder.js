@@ -6,37 +6,36 @@ import {
 } from './statusTypes';
 
 const initialState = {
-    orders: [],
     status: NOT_STARTED,
     error: {}
 };
 
-const dashboard = function (state = initialState, action) {
+const createOrder = function (state = initialState, action) {
     const { 
         type,
         payload,
     } = action;
 
     switch (type) {
-        case 'FETCH_ORDERS_PENDING': {
+        case 'CREATE_ORDER_PENDING': {
             return {
                 ...state,
                 status: LOADING,
             };
         }
 
-        case 'FETCH_ORDERS_RESOLVED': {
+        case 'CREATE_ORDER_RESOLVED': {
             const {
-                orders,
+                message,
             } = payload;
             return {
                 ...state,
                 status: SUCCESS,
-                orders,
+                message,
             };
         }
 
-        case 'FETCH_ORDERS_REJECTED': {
+        case 'CREATE_ORDER_REJECTED': {
             const {
                 error,
             } = payload;
@@ -54,4 +53,4 @@ const dashboard = function (state = initialState, action) {
     }
 };
 
-export default dashboard;
+export default createOrder;

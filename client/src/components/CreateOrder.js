@@ -1,38 +1,64 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import mapStateToProps from '../mapStateToProps';
+import mapDispatchToProps from '../mapDispatchToProps';
 
-class Order extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { model: 'anvil', packageLevel: '14k' };
-        this.handleChangeModel = this.handleChangeModel.bind(this);
+import {
+    LOADING,
+    SUCCESS,
+    ERROR,
+} from '../reducers/statusTypes';
+
+class CreateOrder extends Component {
+    state = {
+        order: {
+            model: 'anvil',
+            packageLevel: '14k'
+        }
     }
-    handleChangeModel(event) {
-        this.setState({ model: event.target.value });
+    handleChange = (event) => {
+        const { order } = this.state;
+        const updatedOrder = { ...order };
+        updatedOrder[event.target.id] = event.target.value;
+        console.log(updatedOrder);
+        this.setState({ order: updatedOrder });
     }
-    handleChangePackage(event) {
-        this.setState({ packageLevel: event.target.value });
-    }
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
+        const { order } = this.state;
+        this.props.submitOrder(order);
+    }
+    render() {
+        const {
+            handleChange,
+            handleSubmit,
+        } = this;
+        const {
+            status,
+            message,
+            error,
+        } = this.props.createOrder;
         const {
             model,
             packageLevel,
-        } = this.state;
-        
-    }
-    render() {
+        } = this.state.order;
         return (
             <div>
                 <div>
                     <h1>Your Order</h1>
                 </div>
-                <Link to="/">Return to Dashboard</Link>
-                <form>
+                <Link className="margin-bottom" to="/">Return to Dashboard</Link>
+                <div className="margin-left margin-bottom">
+                    { status === LOADING && 'Sending...' }
+                    { status === SUCCESS && message }
+                    { status === ERROR && `An error occurred: ${error}` }
+                </div>
+                <form className="margin-left" onSubmit={handleSubmit}>
                     <div>
                         <div>
                             <label htmlFor="model">Model
-                                <select id="model" value={this.state.model} onChange={this.handleChangeModel}>
+                                <select id="model" value={model} onChange={handleChange}>
                                     <option value="anvil">Anvil</option>
                                     <option value="pugetsound">Puget Sound</option>
                                     <option value="olympic">Olympic</option>
@@ -43,7 +69,7 @@ class Order extends Component {
                         </div>
                         <div>
                             <label htmlFor="packageLevel">Package
-                                <select id="packageLevel" value={this.state.packageLevel} onChange={this.handleChangePackage}>
+                                <select id="packageLevel" value={packageLevel} onChange={handleChange}>
                                     <option value="14k">14K</option>
                                     <option value="elite">Elite</option>
                                     <option value="ltd">LTD</option>
@@ -61,4 +87,4 @@ class Order extends Component {
     }
 }
 
-export default Order;
+export default connect(mapStateToProps, mapDispatchToProps)(CreateOrder);

@@ -1,9 +1,14 @@
 import axios from 'axios';
 import {
     fetchOrders,
-    receiveOrders,
-    fetchOrdersFailed,
+    fetchOrdersResolved,
+    fetchOrdersRejected,
 } from './actions/dashboard';
+import {
+    createOrder,
+    createOrderResolved,
+    createOrderRejected,
+} from './actions/createOrder';
 
 const api = 'http://localhost:3000';
 
@@ -12,11 +17,14 @@ export default (dispatch, ownProps) => {
         fetchOrders: () => {
             dispatch(fetchOrders());
             axios.get(`${api}/orders`)
-                .then(response => dispatch(receiveOrders({ orders: response.data.orders })))
-                .catch(error => dispatch(fetchOrdersFailed({ error })));
+                .then(response => dispatch(fetchOrdersResolved({ orders: response.data.orders })))
+                .catch(error => dispatch(fetchOrdersRejected({ error })));
         },
-        submitOrder: () => {
-          // TODO
+        submitOrder: (data) => {
+            dispatch(createOrder());
+            axios.post(`${api}/order`)
+                .then(response => dispatch(createOrderResolved({ data: response.data })))
+                .catch(error => dispatch(createOrderRejected({ error })));
         }
     };
 };

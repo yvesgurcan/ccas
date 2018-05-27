@@ -2,8 +2,12 @@
   box-sizing: inherit;
 }
 
-.feedback {
+.margin-left {
   margin-left: 4px;
+}
+
+.margin-bottom {
+  margin-bottom: 10px;
 }
 
 body {
@@ -23,7 +27,6 @@ a {
   display: block;
   color: #337ab7;
   text-decoration: none;
-  margin-bottom: 10px;
   margin-left: 4px;
 }
 
