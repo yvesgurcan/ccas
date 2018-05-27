@@ -22,7 +22,7 @@ export default (dispatch, ownProps) => {
         },
         submitOrder: (data) => {
             dispatch(createOrder());
-            axios.post(`${api}/order`)
+            axios.post(`${api}/order`, { ...data })
                 .then(response => dispatch(createOrderResolved({ data: response.data })))
                 .catch(error => dispatch(createOrderRejected({ error })));
         }

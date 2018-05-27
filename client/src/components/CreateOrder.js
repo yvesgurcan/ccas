@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import mapStateToProps from '../mapStateToProps';
 import mapDispatchToProps from '../mapDispatchToProps';
+import {
+    makesList,
+    modelsList,
+    suppliersList,
+} from '../constants';
 
 import {
     LOADING,
@@ -10,18 +15,43 @@ import {
     ERROR,
 } from '../reducers/statusTypes';
 
+
+
+const Dropdown = (props) => {
+    const {
+        id,
+        value,
+        onChange,
+        label,
+        children,
+    } = props;
+    return (
+        <div>
+            <label htmlFor={id}>{label}
+                <select id={id} value={value} onChange={onChange}>
+                    {children}
+                </select>
+            </label>
+        </div>
+    )
+}
+
 class CreateOrder extends Component {
     state = {
         order: {
-            model: 'anvil',
-            packageLevel: '14k'
+            make: makesList[0].value,
+            model: modelsList[0].value,
+            packageLevel: '14k',
+            supplier: suppliersList[0],
         }
     }
     handleChange = (event) => {
         const { order } = this.state;
         const updatedOrder = { ...order };
         updatedOrder[event.target.id] = event.target.value;
-        console.log(updatedOrder);
+        if (event.target.id === 'model') {
+            // TODO: update supplier, update packages
+        }
         this.setState({ order: updatedOrder });
     }
     handleSubmit = (event) => {
@@ -40,6 +70,8 @@ class CreateOrder extends Component {
             error,
         } = this.props.createOrder;
         const {
+            supplier,
+            make,
             model,
             packageLevel,
         } = this.state.order;
@@ -48,38 +80,30 @@ class CreateOrder extends Component {
                 <div>
                     <h1>Your Order</h1>
                 </div>
-                <Link className="margin-bottom" to="/">Return to Dashboard</Link>
-                <div className="margin-left margin-bottom">
+                <Link className='margin-bottom' to='/'>Return to Dashboard</Link>
+                <div className='margin-left margin-bottom'>
                     { status === LOADING && 'Sending...' }
                     { status === SUCCESS && message }
                     { status === ERROR && `An error occurred: ${error}` }
                 </div>
-                <form className="margin-left" onSubmit={handleSubmit}>
+                <form className='margin-left' onSubmit={handleSubmit}>
                     <div>
-                        <div>
-                            <label htmlFor="model">Model
-                                <select id="model" value={model} onChange={handleChange}>
-                                    <option value="anvil">Anvil</option>
-                                    <option value="pugetsound">Puget Sound</option>
-                                    <option value="olympic">Olympic</option>
-                                    <option value="roadrunner">Roadrunner</option>
-                                    <option value="wile">Wile</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div>
-                            <label htmlFor="packageLevel">Package
-                                <select id="packageLevel" value={packageLevel} onChange={handleChange}>
-                                    <option value="14k">14K</option>
-                                    <option value="elite">Elite</option>
-                                    <option value="ltd">LTD</option>
-                                    <option value="mtn">MTN</option>
-                                    <option value="std">STD</option>
-                                    <option value="super">Super</option>
-                                </select>
-                            </label>
-                        </div>
+                        <Dropdown id='make' label='Make' value={make} onChange={handleChange}>
+                            {makesList.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}  
+                        </Dropdown>
+                        <Dropdown id='model' label='Model' value={model} onChange={handleChange}>
+                            {modelsList.filter(item => item.make === make).map(item => <option key={item.value} value={item.value}>{item.label}</option>)}   
+                        </Dropdown>
+                        <Dropdown id='packageLevel' label='Package' value={packageLevel} onChange={handleChange}>
+                            <option value='14k'>14K</option>
+                            <option value='elite'>Elite</option>
+                            <option value='ltd'>LTD</option>
+                            <option value='mtn'>MTN</option>
+                            <option value='std'>STD</option>
+                            <option value='super'>Super</option>  
+                        </Dropdown>
                     </div>
+                    <div>Supplier: {supplier.label}</div>
                     <button>send</button>
                 </form>
             </div>
