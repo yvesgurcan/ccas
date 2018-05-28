@@ -37,6 +37,17 @@ const catchError = function (error, res) {
     return res.send();
 };
 
+app.get('/orders', (req, res) => {
+    console.log('GET /orders');
+    db.fetchOrders()
+        .then(unsortedOrders => {
+            const orders = unsortedOrders.reverse();
+            console.log('Order data successfully retrieved.');
+            return res.send({ orders });
+        })
+        .catch(error => catchError(error, res));
+});
+
 app.post('/order', (req, res) => {
     console.log('POST /order');
     const { make, model, packageLevel, customerId = null } = req.body;
@@ -83,15 +94,4 @@ app.post('/order', (req, res) => {
         .catch(error => catchError(error, res));
 });
 
-app.get('/orders', (req, res) => {
-    console.log('GET /orders');
-    db.fetchOrders()
-        .then(unsortedOrders => {
-            const orders = unsortedOrders.reverse();
-            console.log('Order data successfully retrieved.');
-            return res.send({ orders });
-        })
-        .catch(error => catchError(error, res));
-  });
-
-app.listen(port, hostname, () => console.log(`CCAS API listening at ${hostname}:${port}`));
+app.listen(port, hostname, () => console.log(`CCAS API listening at ${hostname}:${port}\n`));
