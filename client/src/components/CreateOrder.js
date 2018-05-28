@@ -114,11 +114,10 @@ class CreateOrder extends Component {
             model,
             packageLevel,
         } = order;
-        console.log(order)
         return (
             <div>
                 <h2>Your Order</h2>
-                <Link className='margin-bottom' to='/'>Return to Dashboard</Link>
+                <Link className='margin-left margin-bottom' to='/'>Return to Dashboard</Link>
                 <div className='margin-left margin-bottom'>
                     { validationError }
                     { status === LOADING && 'Sending...' }

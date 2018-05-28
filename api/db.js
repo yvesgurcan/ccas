@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const address = 'mongodb://localhost/ccas';
+const address = 'mongodb://localhost/ccas-dbg';
 const connect = function () {
     mongoose.connect(address).then(
         () => null,

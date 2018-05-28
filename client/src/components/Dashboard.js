@@ -41,34 +41,39 @@ class Dashboard extends Component {
         return (
             <div>
                 <h2>Dashboard</h2>
-                <Link className="margin-bottom" to="/order/new">Add Order</Link>
-                <div className="margin-left">
+                <Link className='margin-left margin-bottom' to='/order/new'>Add Order</Link>
+                <div className='margin-left'>
                     { status === LOADING && 'Loading...' }
                     { status === ERROR && `An error occurred: ${error}` }
                 </div>
                 { status === SUCCESS && 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Make</th>
-                                <th>Model</th>
-                                <th>Package</th>
-                                <th>Supplier</th>
-                                <th>Created At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {orders.map(order => (
-                                <tr key={order._id}>
-                                    <td>{findMatchingLabel(makesList, order.make)}</td>
-                                    <td>{findMatchingLabel(modelsList, order.model)}</td>
-                                    <td>{findMatchingLabel(packagesList, order.packageLevel)}</td>
-                                    <td>{findMatchingLabel(suppliersList, order.supplier)}</td>
-                                    <td>{order.createdAt && new Date(order.createdAt).toLocaleDateString('en-US', { hour: 'numeric', minute: 'numeric' })}</td>
+                    <div>
+                        <div className='margin-left'>
+                            {orders.length} orders.
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Make</th>
+                                    <th>Model</th>
+                                    <th>Package</th>
+                                    <th>Supplier</th>
+                                    <th>Created At</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {orders.map(order => (
+                                    <tr key={order._id}>
+                                        <td>{findMatchingLabel(makesList, order.make)}</td>
+                                        <td>{findMatchingLabel(modelsList, order.model)}</td>
+                                        <td>{findMatchingLabel(packagesList, order.packageLevel)}</td>
+                                        <td>{findMatchingLabel(suppliersList, order.supplier)}</td>
+                                        <td>{order.createdAt && new Date(order.createdAt).toLocaleDateString('en-US', { hour: 'numeric', minute: 'numeric' })}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 }
             </div>
         );
