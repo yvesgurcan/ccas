@@ -16,6 +16,9 @@ const OrderSchema = new Schema({
     customerId: Number,
     supplier: String,
     supplierOrderId: String,
+},
+{
+    timestamps: true,
 });
 const Order = mongoose.model('Order', OrderSchema);
 

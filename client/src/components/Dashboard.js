@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import mapStateToProps from '../mapStateToProps';
 import mapDispatchToProps from '../mapDispatchToProps';
+
+import {
+    makesList,
+    modelsList,
+    suppliersList,
+    packagesList,
+} from '../constants';
 
 import {
     LOADING,
@@ -14,7 +22,17 @@ class Dashboard extends Component {
     componentDidMount() {
         this.props.fetchOrders();
     }
+    findMatchingLabel(list, value) {
+        const match = list.filter(item => item.value === value);
+        if (match.length > 0) {
+            return match[0].label;
+        }
+        return value;
+    }
     render() {
+        const {
+            findMatchingLabel,
+        } = this;
         const {
             status,
             orders = [],
@@ -36,17 +54,17 @@ class Dashboard extends Component {
                                 <th>Model</th>
                                 <th>Package</th>
                                 <th>Supplier</th>
-                                <th>Customer ID</th>
+                                <th>Created At</th>
                             </tr>
                         </thead>
                         <tbody>
                             {orders.map(order => (
                                 <tr key={order._id}>
-                                    <td>{order.make}</td>
-                                    <td>{order.model}</td>
-                                    <td>{order.packageLevel}</td>
-                                    <td>{order.supplier}</td>
-                                    <td>{order._id}</td>
+                                    <td>{findMatchingLabel(makesList, order.make)}</td>
+                                    <td>{findMatchingLabel(modelsList, order.model)}</td>
+                                    <td>{findMatchingLabel(packagesList, order.packageLevel)}</td>
+                                    <td>{findMatchingLabel(suppliersList, order.supplier)}</td>
+                                    <td>{order.createdAt && new Date(order.createdAt).toLocaleDateString('en-US', { hour: 'numeric', minute: 'numeric' })}</td>
                                 </tr>
                             ))}
                         </tbody>

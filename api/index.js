@@ -86,7 +86,8 @@ app.post('/order', (req, res) => {
 app.get('/orders', (req, res) => {
     console.log('GET /orders');
     db.fetchOrders()
-        .then(orders => {
+        .then(unsortedOrders => {
+            const orders = unsortedOrders.reverse();
             console.log('Order data successfully retrieved.');
             return res.send({ orders });
         })
