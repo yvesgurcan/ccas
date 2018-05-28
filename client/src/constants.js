@@ -52,3 +52,36 @@ export const modelsList = [
         supplier: suppliersList[0].value,
     },
 ];
+
+export const packagesList = [
+    {
+        value: '14k',
+        label: '14k',
+        supplier: suppliersList[1].value,
+    },
+    {
+        value: 'elite',
+        label: 'Elite',
+        supplier: suppliersList[0].value,
+    },
+    {
+        value: 'ltd',
+        label: 'LTD',
+        supplier: suppliersList[1].value,
+    },
+    {
+        value: 'mtn',
+        label: 'MTN',
+        supplier: suppliersList[1].value,
+    },
+    {
+        value: 'std',
+        label: 'STD',
+        supplier: suppliersList[0].value,
+    },
+    {
+        value: 'super',
+        label: 'Super',
+        supplier: suppliersList[0].value,
+    },
+];
