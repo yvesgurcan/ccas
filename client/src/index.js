@@ -24,12 +24,15 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router>
-            <Switch>
-                <Route exact path="/order/new" component={CreateOrder} />
-                <Route path="/" component={Dashboard} />
-            </Switch>
-        </Router>
+        <div>
+            <h1>Central Cascade Automotive Sales</h1>
+            <Router>
+                <Switch>
+                    <Route exact path="/order/new" component={CreateOrder} />
+                    <Route path="/" component={Dashboard} />
+                </Switch>
+            </Router>
+        </div>
     </Provider>,
     document.getElementById('root')
 );

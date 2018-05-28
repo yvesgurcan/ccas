@@ -22,9 +22,7 @@ class Dashboard extends Component {
         } = this.props.dashboard;
         return (
             <div>
-                <div>
-                    <h1>Dashboard</h1>
-                </div>
+                <h2>Dashboard</h2>
                 <Link className="margin-bottom" to="/order/new">Add Order</Link>
                 <div className="margin-left">
                     { status === LOADING && 'Loading...' }

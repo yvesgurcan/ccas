@@ -77,9 +77,7 @@ class CreateOrder extends Component {
         } = this.state.order;
         return (
             <div>
-                <div>
-                    <h1>Your Order</h1>
-                </div>
+                <h2>Your Order</h2>
                 <Link className='margin-bottom' to='/'>Return to Dashboard</Link>
                 <div className='margin-left margin-bottom'>
                     { status === LOADING && 'Sending...' }
