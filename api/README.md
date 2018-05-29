@@ -1,6 +1,6 @@
 # Service API
 
-Scripts:
+## Scripts
 
 * `npm start`: starts the server
 * `npm run debug`: starts the server with the `--inspect` flag

@@ -1,0 +1,25 @@
+{
+  "name": "ccas-client",
+  "version": "0.1.0",
+  "description": "CCAS Client",
+  "scripts": {
+    "install": "npm run install:client & npm run install:api & npm run install:acme & npm run install:rainier",
+    "install:client": "cd client && npm install",
+    "install:api": "cd api && npm install",
+    "install:acme": "cd suppliers/acme && npm install",
+    "install:rainier": "cd suppliers/rainier && npm install",
+    "start": "npm run start:client & npm run start:api & npm run start:acme & npm run start:rainier",
+    "start:client": "cd client && npm start",
+    "start:api": "cd api && npm start",
+    "start:acme": "cd suppliers/acme && npm start",
+    "start:rainier": "cd suppliers/rainier && npm start",
+    "watch": "npm run watch:client & npm run watch:api & npm run watch:acme & npm run watch:rainier",
+    "watch:client": "cd client && npm run watch",
+    "watch:api": "cd api && npm run watch",
+    "watch:acme": "cd suppliers/acme && npm run watch",
+    "watch:rainier": "cd suppliers/rainier && npm run watch"
+  },
+  "author": "Yves Gurcan",
+  "private": false,
+  "license": "MIT"
+}

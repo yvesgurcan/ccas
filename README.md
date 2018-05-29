@@ -1,64 +1,30 @@
 # Central Cascade Automotive Sales
 
-An online ordering system for custom vehicle orders.
+CCAS online ordering system for custom vehicle orders.
 
-## Development
+## Structure
 
 The application is organized in the following manner:
 * [Client](./client)
 * [Service API](./api)
-* [Supplier APIs](./suppliers)
+* Supplier APIs
+    * [ACME Autos API](./suppliers/acme)
+    * [Rainier Transporation Solutions API](./suppliers/rainier)
 
-There are 2 supplier APIs:
-* [ACME Autos API](./suppliers/acme)
-* [Rainier Transporation Solutions API](./suppliers/rainier)
+## Install Node 6.9.1
 
-This application relies on Node version 6.9.1. Install `nvm` and set a specific version of Node:
+This application relies on Node version 6.9.1.
+
+Install `nvm` and set a specific version of Node:
 
     $ npm install --global nvm
+    $ nvm install 6.9.1
     $ nvm use 6.9.1
 
-### Client
+## Scripts
 
-    $ cd client
+* `npm run install`: install packages for the whole application
+* `npm run start`: starts the whole application
+* `npm run watch`: starts the whole application in watch mode
 
-Scripts:
-
-* `npm start`: starts the client
-* `npm run watch`: starts the client with the `--watch` flag
-* `npm run build`: removes preexisting build and builds the client in `/dist` with `webpack`
-* `npm run lint`: outputs linter warnings and errors in the terminal
-
-### Service API
-
-    $ cd api
-
-Scripts:
-
-* `npm start`: starts the API
-* `npm run debug`: starts the API with the `--inspect` flag
-* `npm run watch`: starts the API with `nodemon`
-* `npm test`: runs tests with `mocha`
-* `npm run lint`: outputs linter warnings and errors in the terminal
-
-### Supplier APIs
-
-#### ACME Autos
-
-    $ cd suppliers/acme
-
-Scripts:
-
-* `npm start`: starts the API
-* `npm run debug`: starts the API with the `--inspect` flag
-* `npm run watch`: starts the API with `nodemon`
-
-#### Rainier Transportation Solutions
-
-    $ cd suppliers/rainier
-
-Scripts:
-
-* `npm start`: starts the API
-* `npm run debug`: starts the API with the `--inspect` flag
-* `npm run watch`: starts the API with `nodemon`
+You can run these scripts individually by adding `:client`, `:api`, `:acme`, or `:rainier` to the script name. For example: `npm run watch:api`.

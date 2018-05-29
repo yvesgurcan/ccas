@@ -1,6 +1,6 @@
 # ACME Autos
 
-Scripts:
+## Scripts
 
 * `npm start`: starts the API
 * `npm run debug`: starts the API with the `--inspect` flag
