@@ -27,4 +27,6 @@ Install `nvm` and set a specific version of Node:
 * `npm run start`: starts the whole application
 * `npm run watch`: starts the whole application in watch mode
 
-You can run these scripts individually by adding `:client`, `:api`, `:acme`, or `:rainier` to the script name. For example: `npm run watch:api`.
+You can run these scripts individually by adding `:client`, `:api`, `:acme`, or `:rainier` to the script name.
+
+For example: `npm run watch:api` will start `nodemon` for the service API.
