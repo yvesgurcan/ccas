@@ -4,9 +4,9 @@
   "description": "Rainier Transportation Services API",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "watch": "nodemon",
-    "debug": "node --inspect index"
+    "debug": "node --inspect ./",
+    "start": "node ./",
+    "watch": "nodemon"
   },
   "author": "Yves Gurcan",
   "license": "MIT",

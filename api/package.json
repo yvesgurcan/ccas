@@ -4,11 +4,11 @@
   "description": "CCAS API",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "debug": "node --inspect index",
-    "watch": "nodemon",
+    "debug": "node --inspect ./",
+    "lint": "eslint ./",
+    "start": "node ./",
     "test": "mocha",
-    "lint": "eslint ./"
+    "watch": "nodemon"
   },
   "author": "Yves Gurcan",
   "license": "MIT",
