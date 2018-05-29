@@ -1,6 +1,6 @@
 # Client
 
-## Scripts:
+## Scripts
 
 * `npm start`: starts the client
 * `npm run watch`: starts the client with the `--watch` flag
