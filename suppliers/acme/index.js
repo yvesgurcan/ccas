@@ -4,10 +4,9 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const hostname = 'localhost';
-const port = 3050;
-const root = '/acme/api/v45.1';
-
+const host = process.env.HOST || 'localhost';
+const port = process.env.PORT || 3050;
+const root = process.env.ROOT || '/acme/api/v45.1';
 const ccasApiKey = 'cascade.53bce4f1dfa0fe8e7ca126f91b35d3a6';
 
 app.post(`${root}/order`, (req, res) => {
@@ -43,6 +42,4 @@ app.post(`${root}/order`, (req, res) => {
   res.send({ order });
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Acme API listening at ${hostname}${root}:${port}`);
-});
+app.listen(port, host, () => console.log(`Acme API listening at ${host}:${port}${root}`));

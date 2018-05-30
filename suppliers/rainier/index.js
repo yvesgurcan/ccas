@@ -1,36 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fakeTokens = require('./fakeTokens');
 
 const app = express();
 app.use(bodyParser.json({ extended: false }));
 
-const hostname = 'localhost';
-const port = 3051;
-const root = '/rainier/api/v10.0';
 
+const host = process.env.HOST || 'localhost';
+const port = process.env.PORT || 3051;
+const root = process.env.ROOT || '/rainier/api/v10.0';
 const ccasStorefront = 'ccas-bb9630c04f';
-
-const fakeTokens = [
-  'z2fjv2s2fej5swz8afv9',
-  'u5weqg2l2g3zda093gp1',
-  'f8rildhnmy97to5140ci',
-  'wofsyo4zb40ttmiuo4d3',
-  '4olup6jxw7twlolttdbz',
-  'xrrefkqklwfzrtfkevii',
-  'wnzwgs66hng9xwsfbdvn',
-  '0jezm6ft7cv6r4j9w9ko',
-  'uotrtg44aw9j9febxxm8',
-  'dzjqqv2p6cavbxzbqwt2',
-];
 
 const getToken = () => {
   const randomTokenIndex = Math.floor(Math.random() * (fakeTokens.length));
   return fakeTokens[randomTokenIndex];
-}
+};
 
 const tokenIsValid = (token) => {
   return fakeTokens.indexOf(token) > -1;
-}
+};
 
 app.get(`${root}/nonce_token`, (req, res) => {
   console.log('GET /nonce_token');
@@ -82,6 +70,4 @@ app.post(`${root}/request_customized_model`, (req, res) => {
   res.send({ order_id });
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Rainier API listening at ${hostname}${root}:${port}`);
-});
+app.listen(port, host, () => console.log(`Rainier API listening at ${host}:${port}${root}`));
