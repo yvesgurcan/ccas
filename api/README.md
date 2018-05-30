@@ -1,5 +1,12 @@
 # Service API
 
+Starts at `http://localhost:3000` by default.
+
+## Endpoints
+
+* `GET /orders`
+* `POST /order`
+
 ## Scripts
 
 * `npm start`: starts the server

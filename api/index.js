@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db');
 const supplierRequest = require('./supplierRequest');
+const createJSONFile = require('./createJSONFile');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -50,23 +51,20 @@ app.get('/orders', (req, res) => {
 
 app.post('/order', (req, res) => {
     console.log('POST /order');
-    const { make, model, packageLevel, customerId = null } = req.body;
-
-    if (!make || !model || !packageLevel) {
-        console.error('Some required parameters are missing.');
-        res.status(400);
-        return res.send({ message: 'Invalid request.' });
-    }
-
-    const data = {
+    const {
         make,
         model,
         packageLevel,
-        customerId,
-    };
+        customerId = null,
+    } = req.body;
+
+    if (!make || !model || !packageLevel) {
+        console.error('Some required parameters are missing.', req.body);
+        res.status(400);
+        return res.send({ message: 'Invalid request.' });
+    }
     
     let supplier = null;
-
     if (model === 'anvil' || model === 'wile' || model === 'roadrunner') {
         supplier = 'acme';
     } else if (model === 'pugetsound' || model === 'olympic') {
@@ -77,11 +75,20 @@ app.post('/order', (req, res) => {
         return res.send({ message: 'Invalid request.' });
     }
 
+    const data = {
+        make,
+        model,
+        packageLevel,
+        customerId,
+    };
+
     const orderData = Object.assign(data, { supplier });
 
     let orderId = null;
+    let dbOrder = null;
     db.insertOrder(orderData)
-        .then((order) => {
+        .then(order => {
+            dbOrder = Object.assign({}, order._doc);
             console.log('Order successfully created in the database.');
             orderId = order._id;
             return supplierRequest(supplier, orderData);
@@ -89,6 +96,9 @@ app.post('/order', (req, res) => {
         .then(supplierOrderId => {
             console.log('Order successfully sent to the supplier.');
             return db.addSupplierOrderId(orderId, supplierOrderId);
+        })
+        .then(() => {
+            return createJSONFile(`orders/order-${orderId}`, dbOrder);
         })
         .then(() => res.send({ message: 'Order successfully created.' }))
         .catch(error => catchError(error, res));
