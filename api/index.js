@@ -86,7 +86,7 @@ app.post(`${root}/order`, (req, res) => {
         .then(() => {
             return createJSONFile(`orders/order-${orderId}`, dbOrder);
         })
-        .then(() => res.send({ message: 'Order successfully created.', url: `http://${host}:${port}/orders/${orderId}` }))
+        .then(() => res.send({ message: 'Order successfully created.', url: `http://${host}:${port}${root}/orders/${orderId}` }))
         .catch(error => catchError(error, res));
 });
 

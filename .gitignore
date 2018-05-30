@@ -3,6 +3,7 @@ node_modules
 npm-debug.log.*
 npm-debug.*
 dist
-orders
-TODO.md
 .env
+api/orders/*
+!api/orders/.gitkeep
+TODO.md
