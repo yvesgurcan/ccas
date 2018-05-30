@@ -49,6 +49,12 @@ app.get('/orders', (req, res) => {
         .catch(error => catchError(error, res));
 });
 
+app.get('/orders/:id', (req, res) => {
+    const { id } = req.params;
+    console.log('GET /order');
+    return res.download(`orders/order-${id}.json`);
+});
+
 app.post('/order', (req, res) => {
     console.log('POST /order');
     const {
@@ -100,7 +106,7 @@ app.post('/order', (req, res) => {
         .then(() => {
             return createJSONFile(`orders/order-${orderId}`, dbOrder);
         })
-        .then(() => res.send({ message: 'Order successfully created.' }))
+        .then(() => res.send({ message: 'Order successfully created.', url: `http://${hostname}:${port}/orders/${orderId}` }))
         .catch(error => catchError(error, res));
 });
 

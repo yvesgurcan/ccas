@@ -27,11 +27,13 @@ const createOrder = function (state = initialState, action) {
         case 'CREATE_ORDER_RESOLVED': {
             const {
                 message,
+                url,
             } = payload;
             return {
                 ...state,
                 status: SUCCESS,
                 message,
+                url,
             };
         }
 
@@ -44,6 +46,15 @@ const createOrder = function (state = initialState, action) {
                 ...state,
                 status: ERROR,
                 error: message || error.message,
+            };
+        }
+
+        case 'CLEAN_UP_STORE': {
+            return {
+                ...state,
+                status: NOT_STARTED,
+                message: undefined,
+                url: undefined,
             };
         }
 

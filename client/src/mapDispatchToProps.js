@@ -8,6 +8,7 @@ import {
     createOrder,
     createOrderResolved,
     createOrderRejected,
+    cleanUpStore,
 } from './actions/createOrder';
 
 const api = 'http://localhost:3000';
@@ -23,8 +24,9 @@ export default (dispatch, ownProps) => {
         submitOrder: (data) => {
             dispatch(createOrder());
             axios.post(`${api}/order`, { ...data })
-                .then(response => dispatch(createOrderResolved({ message: response.data.message })))
+                .then(response => dispatch(createOrderResolved({ message: response.data.message, url: response.data.url })))
                 .catch(error => dispatch(createOrderRejected({ error })));
-        }
+        },
+        cleanUpStore: () => dispatch(cleanUpStore())
     };
 };

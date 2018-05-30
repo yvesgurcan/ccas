@@ -41,6 +41,7 @@ const Dropdown = (props) => {
 
 class CreateOrder extends Component {
     state = {}
+    componentDidMount = () => this.props.cleanUpStore();
     handleChange = (event) => {
         const { order } = this.state;
         const updatedOrder = { ...order };
@@ -102,6 +103,7 @@ class CreateOrder extends Component {
         const {
             status,
             message,
+            url,
             error,
         } = this.props.createOrder;
         const {
@@ -123,6 +125,9 @@ class CreateOrder extends Component {
                     { status === LOADING && 'Sending...' }
                     { status === SUCCESS && message }
                     { status === ERROR && `An error occurred: ${error}` }
+                </div>
+                <div className='margin-left margin-bottom'>
+                    { status === SUCCESS && url && <a href={url}>Click here to download the data file.</a> }
                 </div>
                 <form className='margin-left' onSubmit={handleSubmit}>
                     <div>
