@@ -1,7 +1,5 @@
 const app = require('../');
 const db = require('../db');
-const request = require('superagent');
-const mockSuperagent = require('superagent-mock');
 const utils = require('./utils');
 const assert = require('assert');
 require('dotenv').load();
