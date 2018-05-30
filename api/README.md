@@ -5,6 +5,7 @@ Starts at `http://localhost:3000` by default.
 ## Endpoints
 
 * `GET /orders`
+* `GET /orders/:id`
 * `POST /order`
 
 ## Scripts

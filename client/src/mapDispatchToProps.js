@@ -11,7 +11,7 @@ import {
     cleanUpStore,
 } from './actions/createOrder';
 
-const api = 'http://localhost:3000';
+const api = 'http://localhost:3000/api';
 
 export default (dispatch, ownProps) => {
     return {

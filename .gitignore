@@ -5,3 +5,4 @@ npm-debug.*
 dist
 orders
 TODO.md
+.env

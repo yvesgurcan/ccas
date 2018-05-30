@@ -2,7 +2,7 @@ const Mongoose = require('mongoose').Mongoose;
 const Mockgoose = require('mockgoose').Mockgoose;
 const db = require('../db');
 const assert = require('assert');
-const chai = require('chai')
+const chai = require('chai');
 const expect = chai.expect;
 
 chai.use(require('chai-json-schema'));
@@ -43,15 +43,6 @@ const insertOrderSchema = {
 
 const processedOrderSuccessOutput = { ok: 1, nModified: 1, n: 1 };
 
-before(function (done) {
-	mockgoose.prepareStorage().then(function () {
-        // it does not look like mockgoose is doing its job. might need to wrap the db methods with it?
-		mongoose.connect('mongodb://localhost/ccas-test', function (err) {
-			done(err);
-		});
-	});
-});
-
 describe('database', function () {
     describe('insertOrder()', function () {
         it('should insert the order', function (done) {
@@ -78,7 +69,7 @@ describe('database', function () {
         it('should return orders in the database', function (done) {
             db.fetchOrders()
                 .then(orders => {
-                    // done();
+                    done();
                 })
                 .catch(error => done(error));
         });

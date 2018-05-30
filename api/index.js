@@ -1,44 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').load();
 const db = require('./db');
 const supplierRequest = require('./supplierRequest');
 const createJSONFile = require('./createJSONFile');
+const catchError = require('./catchError');
 
-const hostname = 'localhost';
-const port = 3000;
+const host = process.env.HOST || 'localhost';
+const port = process.env.PORT || 3000;
+const root = process.env.ROOT || '/api';
 
 const app = express();
 app.use(bodyParser.json({ extended: false }));
-
-// CORS
 app.all('/*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
     next();
 });
 
-const catchError = function (error, res) {
-    if (error.response) {
-        console.error('An error occurred. Response details:\n', {
-            request: {
-                resource: error.response.request.url,
-                method: error.response.request.method,
-                payload: error.response.request._data,
-            },
-            response: {
-                status: error.status,
-                error: error.message,
-                body: error.response.body,
-            }
-        });
-    } else {
-        console.error('An error occurred:\n', error);
-    }
-    res.status(500);
-    return res.send();
-};
-
-app.get('/orders', (req, res) => {
+app.get(`${root}/orders`, (req, res) => {
     console.log('GET /orders');
     db.fetchOrders()
         .then(unsortedOrders => {
@@ -49,13 +29,13 @@ app.get('/orders', (req, res) => {
         .catch(error => catchError(error, res));
 });
 
-app.get('/orders/:id', (req, res) => {
+app.get(`${root}/orders/:id`, (req, res) => {
     const { id } = req.params;
-    console.log('GET /order');
+    console.log('GET /orders/:id');
     return res.download(`orders/order-${id}.json`);
 });
 
-app.post('/order', (req, res) => {
+app.post(`${root}/order`, (req, res) => {
     console.log('POST /order');
     const {
         make,
@@ -106,8 +86,8 @@ app.post('/order', (req, res) => {
         .then(() => {
             return createJSONFile(`orders/order-${orderId}`, dbOrder);
         })
-        .then(() => res.send({ message: 'Order successfully created.', url: `http://${hostname}:${port}/orders/${orderId}` }))
+        .then(() => res.send({ message: 'Order successfully created.', url: `http://${host}:${port}/orders/${orderId}` }))
         .catch(error => catchError(error, res));
 });
 
-app.listen(port, hostname, () => console.log(`CCAS API listening at ${hostname}:${port}\n`));
+app.listen(port, host, () => console.log(`CCAS API listening at ${host}:${port}${root}\n`));
