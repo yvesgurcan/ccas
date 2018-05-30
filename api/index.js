@@ -6,9 +6,15 @@ const supplierRequest = require('./supplierRequest');
 const createJSONFile = require('./createJSONFile');
 const catchError = require('./catchError');
 
-const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3000;
-const root = process.env.ROOT || '/api';
+const {
+    NODE_ENV,
+    HOST, PORT, ROOT,
+    HOST_TEST, PORT_TEST, ROOT_TEST
+} = process.env;
+
+const host = (NODE_ENV === 'test' ? HOST_TEST : HOST) || 'localhost';
+const port = (NODE_ENV === 'test' ? PORT_TEST : PORT) || 3000;
+const root = (NODE_ENV === 'test' ? ROOT_TEST : ROOT) || '/api';
 
 const app = express();
 app.use(bodyParser.json({ extended: false }));
@@ -91,3 +97,5 @@ app.post(`${root}/order`, (req, res) => {
 });
 
 app.listen(port, host, () => console.log(`CCAS API listening at ${host}:${port}${root}\n`));
+
+module.exports = app;
