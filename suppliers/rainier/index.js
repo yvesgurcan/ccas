@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fakeTokens = require('./fakeTokens');
+const log = require('./log');
 
 const app = express();
 app.use(bodyParser.json({ extended: false }));
@@ -21,17 +22,17 @@ const tokenIsValid = (token) => {
 };
 
 app.get(`${root}/nonce_token`, (req, res) => {
-  console.log('GET /nonce_token');
+  log('GET /nonce_token');
   const storefront = req.get('Storefront');
 
   if (!storefront) {
-    console.log('No storefront ID.');
+    log('No storefront ID.');
     res.status(400);
     return res.send({ message: 'Invalid request.' });
   }
 
   if (storefront !== ccasStorefront) {
-    console.log('Invalid storefront ID.');
+    log('Invalid storefront ID.');
     res.status(400);
     return res.send({ message: 'Invalid storefront ID.' });
   }
@@ -40,34 +41,34 @@ app.get(`${root}/nonce_token`, (req, res) => {
 });
 
 app.post(`${root}/request_customized_model`, (req, res) => {
-  console.log('POST /request_customized_model');
+  log('POST /request_customized_model');
   const token = req.get('Token');
 
   if (!token) {
-    console.log('No token.');
+    log('No token.');
     res.status(400);
     return res.send({ message: 'Invalid request.' });
   }
 
   if (!tokenIsValid(token)) {
-    console.log('Invalid token.');
+    log('Invalid token.');
     res.status(400);
     return res.send({ message: 'Invalid token.' });
   }
 
   const { model, packageLevel } = req.body;
   if (!model || !packageLevel) {
-    console.log('Some required parameters are missing.');
+    log('Some required parameters are missing.');
     res.status(400);
     return res.send({ message: 'Invalid request.' });
   }
 
-  console.log('Request parameters are valid.');
+  log('Request parameters are valid.');
 
   const order_id = Math.floor(Math.random() * 999);
-  console.log(`Randomly generated order id: ${order_id}`);
+  log(`Randomly generated order id: ${order_id}`);
 
   res.send({ order_id });
 });
 
-app.listen(port, host, () => console.log(`Rainier API listening at ${host}:${port}${root}`));
+app.listen(port, host, () => log(`Rainier API listening at ${host}:${port}${root}`));

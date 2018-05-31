@@ -2,6 +2,7 @@ const app = require('../');
 const db = require('../db');
 const utils = require('./utils');
 const assert = require('assert');
+const axios = require('axios');
 require('dotenv').load();
 
 const chai = require('chai');
@@ -17,9 +18,25 @@ const root = ROOT_TEST || '/api';
 const apiUrl = `http://${host}:${port}${root}`;
 
 describe('service API', function () {
-    describe('GET /orders', function () {
+    describe.skip('GET /orders', function () {
         it('should return a list of orders', function (done) {
-            done();
+            axios.get(`${apiUrl}/orders`)
+                .then(result => {
+                    expect(result.data).to.have.property('orders');
+                    expect(result.data.orders).to.be.an('array');
+                    done();
+                })
+                .catch(error => done(error));
+        })
+    })
+    describe('POST /order', function () {
+        it('should return ok and a link to the order JSON data file', function (done) {
+            axios.post(`${apiUrl}/order`)
+                .then(result => {
+                    expect(result.ok).to.be.true;
+                    done();
+                })
+                .catch(error => done(error));
         })
     })
 })

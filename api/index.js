@@ -5,6 +5,7 @@ const db = require('./db');
 const supplierRequest = require('./supplierRequest');
 const createJSONFile = require('./createJSONFile');
 const catchError = require('./catchError');
+const log = require('./log');
 
 const {
     NODE_ENV,
@@ -25,11 +26,11 @@ app.all('/*', function (req, res, next) {
 });
 
 app.get(`${root}/orders`, (req, res) => {
-    console.log('GET /orders');
+    log('GET /orders');
     db.fetchOrders()
         .then(unsortedOrders => {
             const orders = unsortedOrders.reverse();
-            console.log('Order data successfully retrieved.');
+            log('Order data successfully retrieved.');
             return res.send({ orders });
         })
         .catch(error => catchError(error, res));
@@ -37,12 +38,12 @@ app.get(`${root}/orders`, (req, res) => {
 
 app.get(`${root}/orders/:id`, (req, res) => {
     const { id } = req.params;
-    console.log('GET /orders/:id');
+    log('GET /orders/:id');
     return res.download(`orders/order-${id}.json`);
 });
 
 app.post(`${root}/order`, (req, res) => {
-    console.log('POST /order');
+    log('POST /order');
     const {
         make,
         model,
@@ -51,7 +52,7 @@ app.post(`${root}/order`, (req, res) => {
     } = req.body;
 
     if (!make || !model || !packageLevel) {
-        console.error('Some required parameters are missing.', req.body);
+        error('Some required parameters are missing.', req.body);
         res.status(400);
         return res.send({ message: 'Invalid request.' });
     }
@@ -62,7 +63,7 @@ app.post(`${root}/order`, (req, res) => {
     } else if (model === 'pugetsound' || model === 'olympic') {
         supplier = 'rainier';
     } else {
-        console.error(`The supplier could not be identified for model '${model}'.`);
+        error(`The supplier could not be identified for model '${model}'.`);
         res.status(400);
         return res.send({ message: 'Invalid request.' });
     }
@@ -81,12 +82,12 @@ app.post(`${root}/order`, (req, res) => {
     db.insertOrder(orderData)
         .then(order => {
             dbOrder = Object.assign({}, order._doc);
-            console.log('Order successfully created in the database.');
+            log('Order successfully created in the database.');
             orderId = order._id;
             return supplierRequest(supplier, orderData);
         })
         .then(supplierOrderId => {
-            console.log('Order successfully sent to the supplier.');
+            log('Order successfully sent to the supplier.');
             return db.addSupplierOrderId(orderId, supplierOrderId);
         })
         .then(() => {
@@ -96,6 +97,6 @@ app.post(`${root}/order`, (req, res) => {
         .catch(error => catchError(error, res));
 });
 
-app.listen(port, host, () => console.log(`CCAS API listening at ${host}:${port}${root}\n`));
+app.listen(port, host, () => log(`CCAS API listening at ${host}:${port}${root}\n`));
 
 module.exports = app;

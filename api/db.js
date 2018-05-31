@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Mockgoose = require('mockgoose').Mockgoose;
 const { Order } = require('./model');
+const log = require('./log');
 require('dotenv').load();
 
 const mockgoose = new Mockgoose(mongoose);
@@ -10,11 +11,11 @@ const connect = function () {
     if (process.env.NODE_ENV === 'test') {
         return mockgoose.prepareStorage()
             .then(() => mongoose.connect(address)
-            .catch(error => console.error(error)));
+            .catch(error => log(error, 'error')));
     }
     mongoose.connect(address).then(
         () => null,
-        error => console.error('An error occurred while connecting to the database:\n', error)
+        error => log({ message: 'An error occurred while connecting to the database:\n', error }, 'error')
     );
 };
 

@@ -1,4 +1,5 @@
 const request = require('superagent');
+const log = require('./log');
 
 const suppliers = {
     acme: {
@@ -21,7 +22,7 @@ const extractSupplierOrderId = function (supplier, apiRes) {
 };
 
 module.exports = function (supplier, order) {
-    console.log(`Sending request to supplier '${supplier}'.`);
+    log(`Sending request to supplier '${supplier}'.`);
     switch (supplier) {
         default: throw Error('Invalid supplier.');
         case 'acme': {
