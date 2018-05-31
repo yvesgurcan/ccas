@@ -5,11 +5,11 @@ CCAS online ordering system for custom vehicle orders.
 ## Structure
 
 The application is organized in the following manner:
-* [Client](./client)
-* [Service API](./api)
+* [Client](./client) (localhost:8080)
+* [Service API](./api) (localhost:3000)
 * Supplier APIs
-    * [ACME Autos API](./suppliers/acme)
-    * [Rainier Transporation Solutions API](./suppliers/rainier)
+    * [ACME Autos API](./suppliers/acme) (localhost:3050)
+    * [Rainier Transporation Solutions API](./suppliers/rainier) (localhost:3051)
 
 ## Install Node 6.9.1
 
@@ -20,6 +20,10 @@ To set up your CLI to the right Node environment, you can install `nvm`. Follow 
 Then, you can run the following commands:
     $ nvm install 6.9.1
     $ nvm use 6.9.1
+
+## Environment
+
+If necessary, you can change where the APIs are served by changing the values in each `.env` file.
 
 ## Scripts
 
