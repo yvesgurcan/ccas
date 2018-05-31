@@ -3,7 +3,7 @@
 ## Endpoints
 
 * `GET /nonce_token`
-* `POST /request_customized_model`
+* `POST /request_customized_model { model, packageLevel }``
 
 ## Scripts
 
