@@ -1,4 +1,4 @@
-module.exports.fakeTokens = [
+module.exports = [
     'z2fjv2s2fej5swz8afv9',
     'u5weqg2l2g3zda093gp1',
     'f8rildhnmy97to5140ci',
@@ -10,4 +10,3 @@ module.exports.fakeTokens = [
     'uotrtg44aw9j9febxxm8',
     'dzjqqv2p6cavbxzbqwt2',
   ];
-  
