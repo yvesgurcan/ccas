@@ -52,7 +52,7 @@ app.post(`${root}/order`, (req, res) => {
     } = req.body;
 
     if (!make || !model || !packageLevel) {
-        error('Some required parameters are missing.', req.body);
+        log({ message: 'Some required parameters are missing.', body: req.body }, 'error');
         res.status(400);
         return res.send({ message: 'Invalid request.' });
     }
@@ -63,7 +63,7 @@ app.post(`${root}/order`, (req, res) => {
     } else if (model === 'pugetsound' || model === 'olympic') {
         supplier = 'rainier';
     } else {
-        error(`The supplier could not be identified for model '${model}'.`);
+        log({ message: `The supplier could not be identified for model '${model}'.` }, 'error');
         res.status(400);
         return res.send({ message: 'Invalid request.' });
     }
@@ -93,7 +93,7 @@ app.post(`${root}/order`, (req, res) => {
         .then(() => {
             return createJSONFile(`orders/order-${orderId}`, dbOrder);
         })
-        .then(() => res.send({ message: 'Order successfully created.', url: `http://${host}:${port}${root}/orders/${orderId}` }))
+        .then(() => res.send({ message: 'Order successfully created.', url: `http://${host}:${port}${root}/orders/${orderId}`, orderId }))
         .catch(error => catchError(error, res));
 });
 
