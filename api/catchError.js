@@ -1,4 +1,4 @@
-module.exports.catchError = function (error, res) {
+module.exports = function (error, res) {
     if (error.response) {
         console.error('An error occurred. Response details:\n', {
             request: {
