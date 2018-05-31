@@ -65,7 +65,7 @@ app.post(`${root}/request_customized_model`, (req, res) => {
 
   log('Request parameters are valid.');
 
-  const order_id = Math.floor(Math.random() * 999);
+  const order_id = String(Math.floor(Math.random() * 999));
   log(`Randomly generated order id: ${order_id}`);
 
   res.send({ order_id });

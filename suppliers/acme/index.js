@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3050;
+const port = process.env.PORT || 3060;
 const root = process.env.ROOT || '/acme/api/v45.1';
 const ccasApiKey = 'cascade.53bce4f1dfa0fe8e7ca126f91b35d3a6';
 
@@ -29,6 +29,7 @@ app.post(`${root}/order`, (req, res) => {
   log('API key is valid.');
 
   const { model, packageLevel } = req.body;
+  console.log(req.body)
   if (!model || !packageLevel) {
     log('Some required parameters are missing.');
     res.status(400);
@@ -37,7 +38,7 @@ app.post(`${root}/order`, (req, res) => {
 
   log('Request parameters are valid.');
 
-  const order = Math.floor(Math.random() * 9999);
+  const order = String(Math.floor(Math.random() * 9999));
   log(`Randomly generated order id: ${order}`);
 
   res.send({ order });

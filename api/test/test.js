@@ -40,7 +40,7 @@ describe('service API', function () {
                     done();
                 })
                 .catch(error => done(error));
-        })
+        });
 
         it('should return 400 if missing model and package level', function (done) {
             request
@@ -51,7 +51,8 @@ describe('service API', function () {
                     expect(result.statusCode).to.equal(400);
                     done();
                 });
-        })
+        });
+
         it('should return 400 if missing make and package level', function (done) {
             request
                 .post(`${apiUrl}/order`)
@@ -61,7 +62,8 @@ describe('service API', function () {
                     expect(result.statusCode).to.equal(400);
                     done();
                 });
-        })
+        });
+
         it('should return 400 if missing model and make', function (done) {
             request
                 .post(`${apiUrl}/order`)
@@ -71,7 +73,8 @@ describe('service API', function () {
                     expect(result.statusCode).to.equal(400);
                     done();
                 });
-        })
+        });
+
         it('should return 400 if model is invalid', function (done) {
             request
                 .post(`${apiUrl}/order`)
@@ -81,8 +84,9 @@ describe('service API', function () {
                     expect(result.statusCode).to.equal(400);
                     done();
                 });
-        })
-    })
+        });
+    });
+
     describe('GET /orders/:id', function () {
         it('should return ok and the JSON data file', function (done) {
             request
@@ -94,7 +98,8 @@ describe('service API', function () {
                     done();
                 })
                 .catch(error => done(error));
-        })
+        });
+
         it('should return 404 if order id is invalid', function (done) {
             request
                 .get(`${apiUrl}/orders/${badOrderId}`)
@@ -103,8 +108,9 @@ describe('service API', function () {
                     expect(result.statusCode).to.equal(404);
                     done();
                 });
-        })
-    })
+        });
+    });
+
     describe('GET /orders', function () {
         it('should return a list of orders', function (done) {
             request
@@ -115,9 +121,9 @@ describe('service API', function () {
                     done();
                 })
                 .catch(error => done(error));
-        })
-    })
-})
+        });
+    });
+});
 
 describe('database', function () {
     let orderId = null;
@@ -132,6 +138,7 @@ describe('database', function () {
                 .catch(error => done(error));
         });
     });
+
     describe('addSupplierOrderId()', function () {
         it('should patch the order', function (done) {
             db.addSupplierOrderId(orderId, fakeSupplierOrderId)
@@ -143,6 +150,7 @@ describe('database', function () {
                 .catch(error => done(error));
         });
     });
+
     describe('fetchOrders()', function () {
         it('should return orders in the database', function (done) {
             db.fetchOrders()
