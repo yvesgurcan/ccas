@@ -2,7 +2,7 @@
 
 ## Endpoint
 
-* `POST /order`
+* `POST /order { model, packageLevel }`
 
 ## Scripts
 
