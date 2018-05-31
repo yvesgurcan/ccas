@@ -20,6 +20,7 @@
     "mockgoose": "^7.3.5",
     "mongodb": "^3.1.0-beta4",
     "mongoose": "^5.1.2",
+    "nock": "^9.3.0",
     "superagent": "^3.8.3"
   },
   "devDependencies": {

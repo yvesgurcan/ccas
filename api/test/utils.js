@@ -34,7 +34,30 @@ module.exports = {
             },
         },
     },
-    processedOrderSuccessOutput: { ok: 1, nModified: 1, n: 1 },
+    updatedOrderSchema: {
+        required: ['_id', 'make', 'model', 'packageLevel', 'createdAt', 'supplierOrderId'],
+        properties: {
+            _id: {
+                type: 'object',
+            },
+            make: {
+                type: 'string',
+            },
+            model: {
+                type: 'string',
+            },
+            packageLevel: {
+                type: 'string',
+            },
+            createdAt: {
+                type: 'object',
+                format: 'date-time',
+            },
+            supplierOrderId: {
+                type: 'string',
+            },
+        },
+    },
     removeFile: (id) => {
         fs.unlink(`./orders/order-${id}.json`, error => {
             if (error) console.log(error);

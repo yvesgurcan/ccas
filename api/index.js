@@ -76,10 +76,8 @@ app.post(`${root}/order`, (req, res) => {
     const orderData = Object.assign(data, { supplier });
 
     let orderId = null;
-    let dbOrder = null;
     db.insertOrder(orderData)
         .then(order => {
-            dbOrder = Object.assign({}, order._doc);
             log('Order successfully created in the database.');
             orderId = order._id;
             return supplierRequest(supplier, orderData);
@@ -88,8 +86,8 @@ app.post(`${root}/order`, (req, res) => {
             log('Order successfully sent to the supplier.');
             return db.addSupplierOrderId(orderId, supplierOrderId);
         })
-        .then(() => {
-            return createJSONFile(`orders/order-${orderId}`, dbOrder);
+        .then(updatedOrder => {
+            return createJSONFile(`orders/order-${orderId}`, updatedOrder);
         })
         .then(() => res.send({ message: 'Order successfully created.', url: `http://${host}:${port}${root}/orders/${orderId}`, orderId }))
         .catch(error => catchError(error, res));

@@ -23,11 +23,13 @@ module.exports = {
     fetchOrders: () => Promise.resolve(connect()).then(() => Order.find()),
     insertOrder: orderData => Promise.resolve(connect()).then(() => new Order(orderData).save()),
     addSupplierOrderId: (orderId, supplierOrderId) =>
-        Promise.resolve(connect()).then(() =>
-            Order.update(
-            { _id: orderId },
-            { $set: { supplierOrderId } },
-            null
-        )
-    ),
+        Promise.resolve(connect())
+            .then(() =>
+                Order.findOneAndUpdate(
+                    { _id: orderId },
+                    { $set: { supplierOrderId } },
+                    null
+                )
+            )
+            .then(result => Object.assign({ supplierOrderId }, result._doc)),
 };
