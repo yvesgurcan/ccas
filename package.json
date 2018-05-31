@@ -17,7 +17,11 @@
     "watch:client": "cd client && npm run watch",
     "watch:api": "cd api && npm run watch",
     "watch:acme": "cd suppliers/acme && npm run watch",
-    "watch:rainier": "cd suppliers/rainier && npm run watch"
+    "watch:rainier": "cd suppliers/rainier && npm run watch",
+    "test": "npm run test:client & npm run test:api & npm run test:acme & npm run test:rainier",
+    "test:api": "cd api && npm run test",
+    "test:acme": "cd suppliers/acme && npm run test",
+    "test:rainier": "cd suppliers/rainier && npm run test"
   },
   "author": "Yves Gurcan",
   "private": false,

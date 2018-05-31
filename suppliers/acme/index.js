@@ -29,7 +29,6 @@ app.post(`${root}/order`, (req, res) => {
   log('API key is valid.');
 
   const { model, packageLevel } = req.body;
-  console.log(req.body)
   if (!model || !packageLevel) {
     log('Some required parameters are missing.');
     res.status(400);

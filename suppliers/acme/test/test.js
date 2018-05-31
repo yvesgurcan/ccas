@@ -6,10 +6,10 @@ require('dotenv').load();
 
 const expect = chai.expect;
 
-const { HOST_TEST, PORT_TEST, ROOT_TEST } = process.env;
-const host = HOST_TEST || 'localhost';
-const port = PORT_TEST || 3050;
-const root = ROOT_TEST || '/acme/api/v45.1';
+const { HOST, PORT, ROOT } = process.env;
+const host = HOST || 'localhost';
+const port = PORT || 3050;
+const root = ROOT || '/acme/api/v45.1';
 const apiUrl = `http://${host}:${port}${root}`;
 
 const { fakeOrder } = utils;

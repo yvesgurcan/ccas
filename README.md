@@ -26,6 +26,7 @@ Install `nvm` and set a specific version of Node:
 * `npm run install`: install packages for the whole application
 * `npm run start`: starts the whole application
 * `npm run watch`: starts the whole application in watch mode
+* `npm run test`: runs tests for the whole application
 
 You can run these scripts individually by adding `:client`, `:api`, `:acme`, or `:rainier` to the script name.
 

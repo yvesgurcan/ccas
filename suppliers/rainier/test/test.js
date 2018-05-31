@@ -1,4 +1,4 @@
-// onst app = require('../');
+const app = require('../');
 const utils = require('./utils');
 const chai = require('chai');
 const request = require('superagent');
@@ -7,10 +7,10 @@ const fakeTokens = require('../fakeTokens');
 
 const expect = chai.expect;
 
-const { HOST_TEST, PORT_TEST, ROOT_TEST } = process.env;
-const host = HOST_TEST || 'localhost';
-const port = PORT_TEST || 3051;
-const root = ROOT_TEST || '/rainier/api/v10.0';
+const { HOST, PORT, ROOT } = process.env;
+const host = HOST || 'localhost';
+const port = PORT || 3051;
+const root = ROOT || '/rainier/api/v10.0';
 const apiUrl = `http://${host}:${port}${root}`;
 
 const { fakeOrder } = utils;
