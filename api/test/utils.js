@@ -2,10 +2,16 @@ const fs = require('fs');
 
 module.exports = {
     fakeOrder: {
-        make: 'beautifulcar',
-        model: 'roadrunner',
-        packageLevel: 'std',
+        make: 'inspiringbrandname',
+        model: 'wile',
+        packageLevel: 'elite',
     },
+    badOrder: {
+        make: 'inspiringbrandname',
+        model: 'somecrazymodel',
+        packageLevel: 'elite',
+    },
+    badOrderId: 'aaa',
     fakeSupplierOrderId: '999',
     insertOrderSchema: {
         required: ['_id', 'make', 'model', 'packageLevel', 'createdAt'],
@@ -35,4 +41,4 @@ module.exports = {
             return null;
         });
     }
-}
+};

@@ -48,7 +48,6 @@ app.post(`${root}/order`, (req, res) => {
         make,
         model,
         packageLevel,
-        customerId = null,
     } = req.body;
 
     if (!make || !model || !packageLevel) {
@@ -72,7 +71,6 @@ app.post(`${root}/order`, (req, res) => {
         make,
         model,
         packageLevel,
-        customerId,
     };
 
     const orderData = Object.assign(data, { supplier });

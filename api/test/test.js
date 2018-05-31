@@ -16,6 +16,8 @@ const apiUrl = `http://${host}:${port}${root}`;
 
 const {
     fakeOrder,
+    badOrder,
+    badOrderId,
     fakeSupplierOrderId,
     insertOrderSchema,
     processedOrderSuccessOutput,
@@ -37,10 +39,10 @@ describe('service API', function () {
         })
     })
     describe('POST /order', function () {
-        it('should return ok, the id of the order, and a link to the order JSON data file', function (done) {
+        it('should return ok, the id of the order and a link to the order JSON data file', function (done) {
             request
                 .post(`${apiUrl}/order`)
-                .send(Object.assign({}, fakeOrder))
+                .send(fakeOrder)
                 .then(result => {
                     expect(result.ok).to.be.true;
                     expect(result.body.url).to.be.an('string');
@@ -48,9 +50,47 @@ describe('service API', function () {
                     orderId = result.body.orderId;
                     done();
                 })
-                .catch(error => {
-                    console.log({response: error.response})
-                    done(error)
+                .catch(error => done(error));
+        })
+
+        it('should return 400 if missing model and package level', function (done) {
+            request
+                .post(`${apiUrl}/order`)
+                .send(fakeOrder.make)
+                .end((error, result) => {
+                    expect(result.ok).to.be.false;
+                    expect(result.statusCode).to.equal(400);
+                    done();
+                });
+        })
+        it('should return 400 if missing make and package level', function (done) {
+            request
+                .post(`${apiUrl}/order`)
+                .send(fakeOrder.model)
+                .end((error, result) => {
+                    expect(result.ok).to.be.false;
+                    expect(result.statusCode).to.equal(400);
+                    done();
+                });
+        })
+        it('should return 400 if missing model and make', function (done) {
+            request
+                .post(`${apiUrl}/order`)
+                .send(fakeOrder.packageLevel)
+                .end((error, result) => {
+                    expect(result.ok).to.be.false;
+                    expect(result.statusCode).to.equal(400);
+                    done();
+                });
+        })
+        it('should return 400 if model is invalid', function (done) {
+            request
+                .post(`${apiUrl}/order`)
+                .send(badOrder)
+                .end((error, result) => {
+                    expect(result.ok).to.be.false;
+                    expect(result.statusCode).to.equal(400);
+                    done();
                 });
         })
     })
@@ -58,7 +98,6 @@ describe('service API', function () {
         it('should return ok and the JSON data file', function (done) {
             request
                 .get(`${apiUrl}/orders/${orderId}`)
-                .send(Object.assign({}, fakeOrder))
                 .then(result => {
                     expect(result.ok).to.be.true;
                     expect(result.body).to.be.an('object');
@@ -66,6 +105,15 @@ describe('service API', function () {
                     done();
                 })
                 .catch(error => done(error));
+        })
+        it('should return 404 if order id is invalid', function (done) {
+            request
+                .get(`${apiUrl}/orders/${badOrderId}`)
+                .end((error, result) => {
+                    expect(result.ok).to.be.false;
+                    expect(result.statusCode).to.equal(404);
+                    done();
+                });
         })
     })
 })
