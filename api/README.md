@@ -6,7 +6,7 @@ Starts at `http://localhost:3000` by default.
 
 * `GET /orders`
 * `GET /orders/:id`
-* `POST /order`
+* `POST /order { make, model, packageLevel }`
 
 ## Scripts
 
