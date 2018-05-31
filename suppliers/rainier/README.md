@@ -1,5 +1,10 @@
 # Rainier Transportation Solutions API
 
+## Endpoints
+
+* `GET /nonce_token`
+* `POST /request_customized_model`
+
 ## Scripts
 
 * `npm start`: starts the API

@@ -1,5 +1,9 @@
 # ACME Autos
 
+## Endpoint
+
+* `POST /order`
+
 ## Scripts
 
 * `npm start`: starts the API
