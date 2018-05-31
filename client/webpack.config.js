@@ -13,7 +13,7 @@ module.exports = {
     output: {
         filename: '[name].[hash].js',
         path: resolve(__dirname, 'dist'),
-        publicPath: '/'
+        publicPath: ''
     },
 
     context: resolve(__dirname, 'src'),
