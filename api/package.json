@@ -13,13 +13,9 @@
   "author": "Yves Gurcan",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "chai": "^4.1.2",
-    "chai-json-schema": "^1.5.0",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "lodash": "^4.17.10",
     "mocha": "^5.2.0",
     "mockgoose": "^7.3.5",
     "mongodb": "^3.1.0-beta4",
@@ -32,6 +28,8 @@
     "eslint-plugin-class-property": "^1.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.8.2"
+    "eslint-plugin-react": "^7.8.2",
+    "chai": "^4.1.2",
+    "chai-json-schema": "^1.5.0"
   }
 }

@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "axios": "^0.15.0",
-    "lodash": "^4.13.1",
     "react": "^16",
     "react-dom": "^16",
     "react-redux": "^5",
