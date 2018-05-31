@@ -18,6 +18,7 @@ This application relies on Node version 6.9.1.
 To set up your CLI to the right Node environment, you can install `nvm`. Follow the instructions [here](https://github.com/creationix/nvm).
 
 Then, you can run the following commands:
+
     $ nvm install 6.9.1
     $ nvm use 6.9.1
 
