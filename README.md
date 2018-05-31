@@ -22,9 +22,13 @@ Then, you can run the following commands:
   $ nvm install 6.9.1
   $ nvm use 6.9.1
 
-## Environment
+## Configure environment
 
 If necessary, you can change where the APIs are served by changing the values in each `.env` file.
+
+## Set up database
+
+If you haven't installed MongoDB yet, you can do so by following the instructions [here](https://docs.mongodb.com/v3.0/tutorial/install-mongodb-on-os-x/) and then run `mongod`.
 
 ## Scripts
 
