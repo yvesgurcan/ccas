@@ -72,3 +72,5 @@ app.post(`${root}/request_customized_model`, (req, res) => {
 });
 
 app.listen(port, host, () => log(`Rainier API listening at ${host}:${port}${root}`));
+
+module.exports = app;

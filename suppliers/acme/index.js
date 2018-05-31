@@ -44,3 +44,5 @@ app.post(`${root}/order`, (req, res) => {
 });
 
 app.listen(port, host, () => log(`Acme API listening at ${host}:${port}${root}`));
+
+module.exports = app;
