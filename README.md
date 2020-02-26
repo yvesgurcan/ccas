@@ -19,8 +19,8 @@ To set up your CLI to the right Node environment, you can install `nvm`. Follow 
 
 Then, you can run the following commands:
 
-  $ nvm install 6.9.1
-  $ nvm use 6.9.1
+   nvm install 6.9.1
+   nvm use 6.9.1
 
 ## Configure environment
 
